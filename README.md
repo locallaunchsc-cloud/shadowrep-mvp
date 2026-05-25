@@ -57,9 +57,12 @@ The MVP is designed to deploy to Vercel **without** any database setup. All wall
    | Key | Value | Required? |
    |---|---|---|
    | `SHADOWREP_ISSUER_SECRET` | `openssl rand -hex 32` output | Recommended |
+   | `HELIUS_API_KEY` | free key from [helius.dev](https://helius.dev) | Optional — enables LIVE on-chain data |
    | `NEXT_PUBLIC_APP_URL` | your Vercel domain (e.g. `https://shadowrep.vercel.app`) | Optional |
 
    `DATABASE_URL` is **not** required — nothing reads it in the demo build.
+
+   **About `HELIUS_API_KEY`:** when set, `/api/analyze` reads real mainnet activity (tx count, wallet age, swap protocols) via Helius. When unset, the app uses deterministic mock data so the demo still works. The reputation card shows a green "Live on-chain data via Helius" pill when Helius is active, and an amber "Demo data (mock)" pill otherwise.
 
 5. **Deploy.** Click Deploy. The first build runs `npm install` then `next build`. No Prisma migrations, no DB.
 

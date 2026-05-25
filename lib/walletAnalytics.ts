@@ -1,37 +1,24 @@
-import { hashWallet } from "@/lib/hash";
 import type { WalletSnapshot } from "@/lib/types";
+import { getMockWalletSnapshot } from "@/lib/walletAnalytics.mock";
+import { getHeliusWalletSnapshot } from "@/lib/walletAnalytics.helius";
 
-const protocols = ["Jupiter", "Pump.fun", "Raydium", "Drift", "Tensor", "Magic Eden", "Kamino", "Jito"];
-const volumeTiers: WalletSnapshot["lifetimeVolumeRange"][] = ["$0-$100", "$100-$1K", "$1K-$10K", "$10K-$50K", "$50K+"];
-
-function pseudoRandom(seed: string) {
-  let h = 2166136261;
-  for (let i = 0; i < seed.length; i++) {
-    h ^= seed.charCodeAt(i);
-    h = Math.imul(h, 16777619);
+/**
+ * Returns a wallet snapshot. Uses Helius when HELIUS_API_KEY is set, otherwise
+ * falls back to deterministic mock data so the demo deploy works out of the
+ * box. If Helius fails at runtime (rate limit, network error), we degrade
+ * gracefully to the mock instead of failing the request.
+ */
+export async function getWalletSnapshot(walletAddress: string): Promise<WalletSnapshot> {
+  if (process.env.HELIUS_API_KEY) {
+    try {
+      return await getHeliusWalletSnapshot(walletAddress);
+    } catch (err) {
+      console.error("[walletAnalytics] Helius failed, falling back to mock:", err);
+    }
   }
-  return Math.abs(h >>> 0);
+  return getMockWalletSnapshot(walletAddress);
 }
 
-export async function getMockWalletSnapshot(walletAddress: string): Promise<WalletSnapshot> {
-  const n = pseudoRandom(walletAddress);
-  const walletAgeDays = 12 + (n % 920);
-  const txCount = 8 + (n % 2400);
-  const swapCount = n % 420;
-  const nftCount = n % 80;
-  const lifetimeVolumeRange = volumeTiers[Math.min(4, Math.floor((n % 100) / 20))];
-  const protocolsUsed = protocols.filter((_, index) => ((n >> index) & 1) === 1).slice(0, 5);
-  const riskFlags = n % 13 === 0 ? ["fresh-wallet-pattern"] : n % 29 === 0 ? ["high-risk-counterparty-touch"] : [];
-
-  return {
-    walletHash: hashWallet(walletAddress),
-    walletAgeDays,
-    txCount,
-    swapCount,
-    nftCount,
-    lifetimeVolumeRange,
-    protocolsUsed: protocolsUsed.length ? protocolsUsed : ["Jupiter"],
-    riskFlags,
-    createdAt: new Date().toISOString(),
-  };
-}
+// Backwards-compat alias for existing callers. New code should import
+// getWalletSnapshot directly.
+export { getMockWalletSnapshot };

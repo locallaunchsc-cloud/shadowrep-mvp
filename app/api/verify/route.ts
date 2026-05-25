@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getMockWalletSnapshot } from "@/lib/walletAnalytics";
+import { getWalletSnapshot } from "@/lib/walletAnalytics";
 import { evaluateGate } from "@/lib/gates";
 
 const Body = z.object({
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   const parsed = Body.safeParse(await req.json());
   if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
 
-  const snapshot = await getMockWalletSnapshot(parsed.data.walletAddress);
+  const snapshot = await getWalletSnapshot(parsed.data.walletAddress);
   const gateResult = evaluateGate(snapshot, parsed.data.requirements);
 
   return NextResponse.json({ gateResult });

@@ -8,6 +8,8 @@ export type WalletSnapshot = {
   protocolsUsed: string[];
   riskFlags: string[];
   createdAt: string;
+  /** "helius" = real on-chain reads. "mock" = deterministic demo data. */
+  dataSource: "helius" | "mock";
 };
 
 export type GateRequirement = {
