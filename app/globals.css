@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body { background: #080812; color: #f8fafc; }
+.wallet-adapter-button { border-radius: 9999px !important; background: #8B5CF6 !important; }
