@@ -1,23 +1,37 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, Unbounded, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletProviders } from "@/components/WalletProviders";
 
-const inter = Inter({
+const space = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-space",
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://shadowrep.vercel.app";
+const unbounded = Unbounded({
+  subsets: ["latin"],
+  variable: "--font-unbounded",
+  weight: ["600", "700", "800", "900"],
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_APP_URL || "https://shadowrep.vercel.app";
 const description =
-  "ShadowRep turns your Solana on-chain history into selective-disclosure credentials. Verify trader credibility, gate communities, and filter bots — without exposing wallets.";
+  "Selective-disclosure reputation for Solana wallets. Prove credibility — without ever exposing the wallet.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ShadowRep — Prove your Solana reputation. Privately.",
+    default: "ShadowRep — Solana reputation, in the dark.",
     template: "%s · ShadowRep",
   },
   description,
@@ -36,25 +50,29 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "ShadowRep",
-    title: "ShadowRep — Prove your Solana reputation. Privately.",
+    title: "ShadowRep — Solana reputation, in the dark.",
     description,
     url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: "ShadowRep — Prove your Solana reputation. Privately.",
+    title: "ShadowRep — Solana reputation, in the dark.",
     description,
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased">
+    <html
+      lang="en"
+      className={`${space.variable} ${unbounded.variable} ${jetbrains.variable}`}
+    >
+      <body className="grain font-sans antialiased">
         <WalletProviders>{children}</WalletProviders>
       </body>
     </html>

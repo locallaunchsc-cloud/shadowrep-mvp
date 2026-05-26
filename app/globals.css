@@ -4,6 +4,10 @@
 
 :root {
   color-scheme: dark;
+  --acid: #00ff85;
+  --cyber: #00f0ff;
+  --magenta: #ff006e;
+  --iris: #b19cff;
 }
 
 html {
@@ -11,62 +15,289 @@ html {
 }
 
 body {
-  background: #06060c;
+  background: #000000;
   color: #f1f5f9;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Wallet adapter button — match brand */
+/* ============================================================
+   GRAIN / NOISE OVERLAY
+   ============================================================ */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   ANIMATED BLOB BACKGROUND
+   ============================================================ */
+.blob-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.55;
+  will-change: transform, border-radius;
+}
+
+.blob-acid {
+  background: radial-gradient(circle at 30% 30%, #00ff85 0%, transparent 70%);
+}
+.blob-cyber {
+  background: radial-gradient(circle at 30% 30%, #00f0ff 0%, transparent 70%);
+}
+.blob-magenta {
+  background: radial-gradient(circle at 30% 30%, #ff006e 0%, transparent 70%);
+}
+.blob-iris {
+  background: radial-gradient(circle at 30% 30%, #b19cff 0%, transparent 70%);
+}
+
+/* ============================================================
+   CONIC GRADIENT ROTATING BORDER
+   ============================================================ */
+.conic-border {
+  position: relative;
+  border-radius: 1.5rem;
+  background: #050507;
+  isolation: isolate;
+}
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    #00ff85 0deg,
+    #00f0ff 90deg,
+    #b19cff 180deg,
+    #ff006e 270deg,
+    #00ff85 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+  animation: conic-spin 6s linear infinite;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes conic-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Fallback for browsers without @property — animate via transform on a separate layer */
+@supports not (background: paint(something)) {
+  .conic-border::before {
+    background: linear-gradient(135deg, #00ff85, #00f0ff, #b19cff, #ff006e);
+    background-size: 300% 300%;
+    animation: holo 6s ease infinite;
+  }
+}
+
+/* ============================================================
+   HOLOGRAPHIC GRADIENT TEXT / SURFACE
+   ============================================================ */
+.holo-text {
+  background: linear-gradient(
+    110deg,
+    #00ff85 0%,
+    #00f0ff 30%,
+    #b19cff 50%,
+    #ff006e 70%,
+    #00ff85 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: holo 6s ease infinite;
+}
+
+.holo-surface {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 133, 0.16) 0%,
+    rgba(0, 240, 255, 0.12) 35%,
+    rgba(177, 156, 255, 0.12) 65%,
+    rgba(255, 0, 110, 0.14) 100%
+  );
+  background-size: 200% 200%;
+  animation: holo 8s ease infinite;
+}
+
+/* ============================================================
+   GLASS PANEL
+   ============================================================ */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ============================================================
+   3D HOVER TILT (CSS-only)
+   ============================================================ */
+.tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tilt:hover {
+  transform: perspective(1200px) rotateX(2deg) rotateY(-4deg) translateZ(8px);
+}
+
+/* ============================================================
+   MARQUEE STRIP
+   ============================================================ */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+/* ============================================================
+   ACID GLOW BUTTON
+   ============================================================ */
+.btn-acid {
+  position: relative;
+  background: linear-gradient(135deg, #00ff85 0%, #00f0ff 100%);
+  color: #000;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  box-shadow: 0 0 0 1px rgba(0, 255, 133, 0.4),
+    0 0 40px rgba(0, 255, 133, 0.35),
+    0 0 80px rgba(0, 240, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.btn-acid:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 0 0 1px rgba(0, 255, 133, 0.6),
+    0 0 60px rgba(0, 255, 133, 0.5),
+    0 0 120px rgba(0, 240, 255, 0.3);
+}
+.btn-acid:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 133, 0.3);
+  color: #00ff85;
+}
+
+/* ============================================================
+   WALLET ADAPTER OVERRIDES (cyberpunk)
+   ============================================================ */
 .wallet-adapter-button {
   border-radius: 9999px !important;
-  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%) !important;
-  font-family: var(--font-inter), system-ui, sans-serif !important;
-  font-weight: 600 !important;
+  background: linear-gradient(135deg, #00ff85 0%, #00f0ff 100%) !important;
+  color: #000 !important;
+  font-family: var(--font-space), system-ui, sans-serif !important;
+  font-weight: 700 !important;
   height: auto !important;
-  padding: 0.625rem 1.25rem !important;
-  font-size: 14px !important;
+  padding: 0.7rem 1.4rem !important;
+  font-size: 13px !important;
   line-height: 1.25 !important;
-  transition: filter 150ms ease, transform 150ms ease !important;
+  letter-spacing: 0.01em !important;
+  transition: filter 150ms ease, transform 150ms ease, box-shadow 150ms ease !important;
+  box-shadow: 0 0 30px rgba(0, 255, 133, 0.3) !important;
 }
 
 .wallet-adapter-button:not([disabled]):hover {
-  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%) !important;
-  filter: brightness(1.05);
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 0 50px rgba(0, 255, 133, 0.45) !important;
 }
 
 .wallet-adapter-button:not([disabled]):active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 .wallet-adapter-dropdown-list,
 .wallet-adapter-modal-wrapper {
-  font-family: var(--font-inter), system-ui, sans-serif !important;
+  font-family: var(--font-space), system-ui, sans-serif !important;
 }
 
-/* Scrollbar */
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #000;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 255, 133, 0.15);
   border-radius: 8px;
+  border: 2px solid #000;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(0, 255, 133, 0.3);
 }
 
-/* Selection */
+/* ============================================================
+   SELECTION
+   ============================================================ */
 ::selection {
-  background: rgba(139, 92, 246, 0.35);
-  color: white;
+  background: rgba(0, 255, 133, 0.4);
+  color: #000;
 }
 
-/* Hide details marker */
+/* ============================================================
+   DETAILS / SUMMARY
+   ============================================================ */
 summary::-webkit-details-marker {
   display: none;
 }

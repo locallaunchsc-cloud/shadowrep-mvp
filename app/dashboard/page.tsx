@@ -64,19 +64,24 @@ export default function DashboardPage() {
   return (
     <>
       <Navbar />
-      <main className="relative min-h-screen">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_-10%,rgba(99,102,241,0.18)_0%,transparent_45%)]" />
+      <main className="relative min-h-screen overflow-hidden">
+        <div className="blob-field">
+          <div className="blob blob-acid animate-blob-2 absolute right-[-15%] top-0 h-[480px] w-[480px] opacity-40" />
+          <div className="blob blob-cyber animate-blob-3 absolute left-[-20%] top-32 h-[420px] w-[420px] opacity-30" />
+        </div>
+
         <section className="relative mx-auto max-w-5xl px-6 py-14">
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-300">
-                Dashboard
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-acid">
+                // DASHBOARD
               </p>
-              <h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-                Generate your ShadowRep
+              <h1 className="mt-3 font-display text-4xl font-black tracking-tight sm:text-6xl">
+                Generate your <br />
+                <span className="holo-text">ShadowRep.</span>
               </h1>
-              <p className="mt-3 max-w-xl text-slate-400">
-                Connect a Solana wallet, scan your on-chain activity, and mint a
+              <p className="mt-4 max-w-xl text-slate-400">
+                Connect a Solana wallet, scan your on-chain activity, mint a
                 hidden-wallet reputation card.
               </p>
             </div>
@@ -84,36 +89,36 @@ export default function DashboardPage() {
           </div>
 
           {/* Status panel */}
-          <div className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
+          <div className="glass mt-10 rounded-3xl p-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <span
-                  className={`grid h-10 w-10 place-items-center rounded-xl ${
+                  className={`grid h-11 w-11 place-items-center rounded-xl border ${
                     publicKey
-                      ? "bg-emerald-400/15 text-emerald-300"
-                      : "bg-white/5 text-slate-500"
+                      ? "border-acid/30 bg-acid/10 text-acid"
+                      : "border-white/10 bg-white/5 text-slate-500"
                   }`}
                 >
                   <WalletIcon className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-slate-500">
-                    Wallet
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-slate-500">
+                    WALLET
                   </p>
-                  <p className="font-mono text-sm text-slate-200">
-                    {shortAddr ?? "Not connected"}
+                  <p className="mt-0.5 font-mono text-sm text-slate-200">
+                    {shortAddr ?? "NOT_CONNECTED"}
                   </p>
                 </div>
               </div>
               <button
                 onClick={analyze}
                 disabled={!publicKey || loading}
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#6366F1] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/30 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:brightness-100"
+                className="btn-acid group disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:brightness-100"
               >
                 {loading ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    Scanning on-chain activity…
+                    Scanning chain…
                   </>
                 ) : (
                   <>
@@ -129,10 +134,12 @@ export default function DashboardPage() {
           {/* Empty state */}
           {!result && !loading && (
             <div className="mt-10 rounded-3xl border border-dashed border-white/10 bg-white/[0.015] p-12 text-center">
-              <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-purple-500/10 text-purple-300">
+              <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl border border-acid/20 bg-acid/5 text-acid">
                 <Scan className="h-5 w-5" />
               </div>
-              <h3 className="mt-5 text-lg font-bold">No scan yet</h3>
+              <h3 className="mt-5 font-display text-lg font-extrabold">
+                No scan yet
+              </h3>
               <p className="mt-2 text-sm text-slate-400">
                 {publicKey
                   ? "Click Analyze wallet to read your on-chain history and generate badges."
@@ -162,24 +169,21 @@ export default function DashboardPage() {
                 <div className="flex flex-wrap gap-3">
                   <a
                     href={`${origin}/card/${proof.proofId}`}
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-slate-200"
+                    className="btn-acid"
                   >
                     Open share card
                     <ArrowRight className="h-4 w-4" />
                   </a>
-                  <button
-                    onClick={copyShare}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
+                  <button onClick={copyShare} className="btn-ghost">
                     {copied ? (
                       <>
-                        <Check className="h-4 w-4 text-emerald-300" />
+                        <Check className="h-4 w-4 text-acid" />
                         Copied
                       </>
                     ) : (
                       <>
                         <Copy className="h-4 w-4" />
-                        Copy share link
+                        Copy link
                       </>
                     )}
                   </button>

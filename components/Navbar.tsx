@@ -3,31 +3,34 @@ import { ShieldCheck } from "lucide-react";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-[#06060c]/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/60 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" className="flex items-center gap-2.5 transition hover:opacity-90">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[#8B5CF6] to-[#6366F1]">
-            <ShieldCheck className="h-4 w-4 text-white" strokeWidth={2.5} />
+        <Link
+          href="/"
+          className="group flex items-center gap-2.5 transition hover:opacity-90"
+        >
+          <span className="relative grid h-8 w-8 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-acid via-cyber to-iris">
+            <ShieldCheck className="h-4 w-4 text-black" strokeWidth={2.75} />
+            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
           </span>
-          <span className="text-base font-bold tracking-tight">ShadowRep</span>
+          <span className="font-display text-base font-extrabold tracking-tight">
+            SHADOWREP
+          </span>
         </Link>
-        <nav className="flex items-center gap-1 text-sm text-slate-400">
+        <nav className="flex items-center gap-1 text-sm">
           <Link
             href="/dashboard"
-            className="hidden rounded-full px-4 py-2 transition hover:bg-white/5 hover:text-white sm:block"
+            className="hidden rounded-full px-4 py-2 text-slate-400 transition hover:bg-white/5 hover:text-acid sm:block"
           >
             Dashboard
           </Link>
           <Link
             href="/gates"
-            className="hidden rounded-full px-4 py-2 transition hover:bg-white/5 hover:text-white sm:block"
+            className="hidden rounded-full px-4 py-2 text-slate-400 transition hover:bg-white/5 hover:text-acid sm:block"
           >
             Gates
           </Link>
-          <Link
-            href="/dashboard"
-            className="ml-2 rounded-full bg-white px-4 py-2 font-semibold text-black transition hover:bg-slate-200"
-          >
+          <Link href="/dashboard" className="btn-acid ml-2 text-xs">
             Open app
           </Link>
         </nav>

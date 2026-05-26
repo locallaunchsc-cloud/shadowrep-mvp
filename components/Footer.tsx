@@ -3,22 +3,25 @@ import { ShieldCheck } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-black/30">
+    <footer className="relative mt-20 border-t border-white/[0.06] bg-black">
+      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-acid/60 to-transparent" />
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[#8B5CF6] to-[#6366F1]">
-              <ShieldCheck className="h-4 w-4 text-white" strokeWidth={2.5} />
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-acid via-cyber to-iris">
+              <ShieldCheck className="h-4 w-4 text-black" strokeWidth={2.75} />
             </span>
-            <span className="text-base font-bold tracking-tight">ShadowRep</span>
+            <span className="font-display text-base font-extrabold tracking-tight">
+              SHADOWREP
+            </span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
-            Selective-disclosure reputation for Solana wallets. Prove
-            credibility without exposing addresses, balances, or strategy.
+            Selective-disclosure reputation for Solana wallets. Prove credibility
+            without exposing addresses, balances, or strategy.
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-acid">
             Product
           </p>
           <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
@@ -29,7 +32,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyber">
             Privacy
           </p>
           <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
@@ -39,7 +42,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-iris">
             Ecosystem
           </p>
           <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
@@ -49,10 +52,10 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/5">
+      <div className="border-t border-white/[0.06]">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} ShadowRep — MVP. Not production.</p>
-          <p>Built on Solana.</p>
+          <p className="font-mono">© {new Date().getFullYear()} SHADOWREP — MVP. NOT PRODUCTION.</p>
+          <p className="font-mono">BUILT_ON :: SOLANA</p>
         </div>
       </div>
     </footer>
