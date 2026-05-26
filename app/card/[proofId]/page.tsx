@@ -61,16 +61,16 @@ export default function ProofCardPage() {
       <Navbar />
       <main className="relative min-h-screen overflow-hidden">
         <div className="blob-field">
-          <div className="blob blob-acid animate-blob-1 absolute left-[-15%] top-0 h-[440px] w-[440px] opacity-30" />
-          <div className="blob blob-cyber animate-blob-3 absolute right-[-10%] top-32 h-[480px] w-[480px] opacity-30" />
-          <div className="blob blob-iris animate-blob-2 absolute left-1/3 top-40 h-[360px] w-[360px] opacity-25" />
+          <div className="blob blob-white animate-blob-1 absolute left-[-15%] top-0 h-[440px] w-[440px] opacity-18" />
+          <div className="blob blob-silver animate-blob-3 absolute right-[-10%] top-32 h-[480px] w-[480px] opacity-18" />
+          <div className="blob blob-iris animate-blob-2 absolute left-1/3 top-40 h-[360px] w-[360px] opacity-20" />
         </div>
 
         <section className="relative mx-auto max-w-3xl px-6 py-14">
           {state.status === "loading" && (
             <div className="glass rounded-3xl p-12 text-center">
-              <Loader2 className="mx-auto h-6 w-6 animate-spin text-acid" />
-              <p className="mt-4 font-mono text-sm uppercase tracking-wider text-slate-400">
+              <Loader2 className="mx-auto h-6 w-6 animate-spin text-white" />
+              <p className="mt-4 font-mono text-sm uppercase tracking-wider text-zinc-400">
                 LOADING_PROOF…
               </p>
             </div>
@@ -78,18 +78,18 @@ export default function ProofCardPage() {
 
           {state.status === "missing" && (
             <div className="glass rounded-3xl p-10">
-              <p className="font-mono text-xs uppercase tracking-[0.35em] text-magenta">
+              <p className="font-mono text-xs uppercase tracking-[0.35em] text-zinc-400">
                 // SHADOWREP::PUBLIC_CARD
               </p>
               <h1 className="mt-4 font-display text-4xl font-black tracking-tight">
                 Proof not available
               </h1>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400">
                 In the demo MVP, proofs live in serverless memory and reset
                 between deploys or cold starts. Connect persistent storage
                 (Prisma + Postgres) to make share cards permanent.
               </p>
-              <p className="mt-6 break-all rounded-2xl bg-black/40 p-4 font-mono text-xs text-slate-500">
+              <p className="mt-6 break-all rounded-2xl bg-black/40 p-4 font-mono text-xs text-zinc-500">
                 proof_id: {params.proofId}
               </p>
             </div>
@@ -97,100 +97,88 @@ export default function ProofCardPage() {
 
           {state.status === "found" && (
             <div className="animate-fade-in-up">
-              <div className="conic-border tilt rounded-3xl p-8 shadow-card">
-                {/* Header */}
+              <div className="chrome-border tilt rounded-3xl p-8 shadow-card">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-zinc-400">
                         // SHADOWREP::PUBLIC_CARD
                       </p>
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-acid/40 bg-acid/10 px-2 py-0.5 font-mono text-[10px] font-bold text-acid">
-                        <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-iris/40 bg-iris/10 px-2 py-0.5 font-mono text-[10px] font-bold text-iris">
+                        <span className="h-1.5 w-1.5 rounded-full bg-iris" />
                         SIGNED
                       </span>
                     </div>
                     <h1 className="mt-3 font-display text-5xl font-black tracking-tight">
-                      <span className="holo-text">
+                      <span className="chrome-text">
                         {state.proof.tier.toUpperCase()}
                       </span>
                     </h1>
-                    <p className="mt-2 text-sm text-slate-400">
+                    <p className="mt-2 text-sm text-zinc-400">
                       Wallet hidden. Reputation visible.
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-acid/30 bg-acid/5 px-4 py-3 text-center">
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-acid">
+                  <div className="chrome-surface rounded-2xl border border-white/15 px-4 py-3 text-center">
+                    <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
                       SCORE
                     </p>
-                    <p className="font-display text-3xl font-black">
+                    <p className="font-display text-3xl font-black text-white">
                       {state.proof.score}
                     </p>
-                    <p className="font-mono text-[10px] text-acid/60">/100</p>
+                    <p className="font-mono text-[10px] text-zinc-500">/100</p>
                   </div>
                 </div>
 
-                {/* Badges */}
                 <div className="mt-7 grid gap-2 sm:grid-cols-2">
-                  {state.proof.badges.map((badge, i) => {
+                  {state.proof.badges.map((badge) => {
                     const Icon = BADGE_ICON[badge] ?? Sparkles;
-                    const accent =
-                      i % 4 === 0
-                        ? "text-acid"
-                        : i % 4 === 1
-                        ? "text-cyber"
-                        : i % 4 === 2
-                        ? "text-iris"
-                        : "text-magenta";
                     return (
                       <div
                         key={badge}
                         className="flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4"
                       >
-                        <span className={`grid h-9 w-9 place-items-center rounded-xl bg-white/5 ${accent}`}>
+                        <span className="grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-white">
                           <Icon className="h-4 w-4" />
                         </span>
                         <p className="text-sm font-bold">{badge}</p>
-                        <CheckCircle2 className="ml-auto h-4 w-4 text-acid" />
+                        <CheckCircle2 className="ml-auto h-4 w-4 text-iris" />
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Meta */}
                 <div className="mt-6 grid gap-2 rounded-2xl border border-white/[0.06] bg-black/40 p-4 font-mono text-xs sm:grid-cols-2">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-slate-500">issued</span>
-                    <span className="text-slate-200">
+                    <span className="text-zinc-500">issued</span>
+                    <span className="text-zinc-200">
                       {new Date(state.proof.issuedAt).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-slate-500">expires</span>
-                    <span className="text-slate-200">
+                    <span className="text-zinc-500">expires</span>
+                    <span className="text-zinc-200">
                       {new Date(state.proof.expiresAt).toLocaleString()}
                     </span>
                   </div>
                 </div>
 
-                {/* Identifiers */}
-                <div className="mt-4 rounded-xl border border-white/[0.06] bg-black/40 p-3 font-mono text-[11px] leading-relaxed text-slate-500">
+                <div className="mt-4 rounded-xl border border-white/[0.06] bg-black/40 p-3 font-mono text-[11px] leading-relaxed text-zinc-500">
                   <p>
-                    wallet : <span className="text-slate-700">●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●</span>
+                    wallet : <span className="text-zinc-700">●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●</span>
                   </p>
                   <p className="break-all">
-                    hash&nbsp;&nbsp; : <span className="text-cyber">{state.proof.walletHash.slice(0, 32)}…</span>
+                    hash&nbsp;&nbsp; : <span className="text-zinc-300">{state.proof.walletHash.slice(0, 32)}…</span>
                   </p>
                   <p className="break-all">
-                    proof&nbsp; : <span className="text-acid">{state.proof.proofId}</span>
+                    proof&nbsp; : <span className="text-iris">{state.proof.proofId}</span>
                   </p>
                   <p className="break-all">
-                    sig&nbsp;&nbsp;&nbsp; : <span className="text-iris">{state.proof.signature.slice(0, 32)}…</span>
+                    sig&nbsp;&nbsp;&nbsp; : <span className="text-zinc-300">{state.proof.signature.slice(0, 32)}…</span>
                   </p>
                 </div>
 
-                <div className="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-slate-500">
-                  <Lock className="h-3.5 w-3.5 text-acid" />
+                <div className="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+                  <Lock className="h-3.5 w-3.5 text-zinc-300" />
                   wallet_never_disclosed · verifier_sees_proof_only
                 </div>
               </div>

@@ -66,21 +66,21 @@ export default function DashboardPage() {
       <Navbar />
       <main className="relative min-h-screen overflow-hidden">
         <div className="blob-field">
-          <div className="blob blob-acid animate-blob-2 absolute right-[-15%] top-0 h-[480px] w-[480px] opacity-40" />
-          <div className="blob blob-cyber animate-blob-3 absolute left-[-20%] top-32 h-[420px] w-[420px] opacity-30" />
+          <div className="blob blob-white animate-blob-2 absolute right-[-15%] top-0 h-[480px] w-[480px] opacity-20" />
+          <div className="blob blob-iris animate-blob-3 absolute left-[-20%] top-32 h-[420px] w-[420px] opacity-20" />
         </div>
 
         <section className="relative mx-auto max-w-5xl px-6 py-14">
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-acid">
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400">
                 // DASHBOARD
               </p>
               <h1 className="mt-3 font-display text-4xl font-black tracking-tight sm:text-6xl">
                 Generate your <br />
-                <span className="holo-text">ShadowRep.</span>
+                <span className="chrome-text">ShadowRep.</span>
               </h1>
-              <p className="mt-4 max-w-xl text-slate-400">
+              <p className="mt-4 max-w-xl text-zinc-400">
                 Connect a Solana wallet, scan your on-chain activity, mint a
                 hidden-wallet reputation card.
               </p>
@@ -88,24 +88,23 @@ export default function DashboardPage() {
             <WalletButton />
           </div>
 
-          {/* Status panel */}
           <div className="glass mt-10 rounded-3xl p-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <span
                   className={`grid h-11 w-11 place-items-center rounded-xl border ${
                     publicKey
-                      ? "border-acid/30 bg-acid/10 text-acid"
-                      : "border-white/10 bg-white/5 text-slate-500"
+                      ? "border-iris/30 bg-iris/10 text-iris"
+                      : "border-white/10 bg-white/5 text-zinc-500"
                   }`}
                 >
                   <WalletIcon className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-slate-500">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500">
                     WALLET
                   </p>
-                  <p className="mt-0.5 font-mono text-sm text-slate-200">
+                  <p className="mt-0.5 font-mono text-sm text-zinc-200">
                     {shortAddr ?? "NOT_CONNECTED"}
                   </p>
                 </div>
@@ -113,7 +112,7 @@ export default function DashboardPage() {
               <button
                 onClick={analyze}
                 disabled={!publicKey || loading}
-                className="btn-acid group disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:brightness-100"
+                className="btn-chrome group disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:brightness-100"
               >
                 {loading ? (
                   <>
@@ -131,16 +130,15 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Empty state */}
           {!result && !loading && (
             <div className="mt-10 rounded-3xl border border-dashed border-white/10 bg-white/[0.015] p-12 text-center">
-              <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl border border-acid/20 bg-acid/5 text-acid">
+              <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/5 text-white">
                 <Scan className="h-5 w-5" />
               </div>
               <h3 className="mt-5 font-display text-lg font-extrabold">
                 No scan yet
               </h3>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-zinc-400">
                 {publicKey
                   ? "Click Analyze wallet to read your on-chain history and generate badges."
                   : "Connect a Solana wallet to get started."}
@@ -148,7 +146,6 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* Loading skeleton */}
           {loading && (
             <div className="mt-10 animate-pulse rounded-3xl border border-white/10 bg-white/[0.03] p-8">
               <div className="h-4 w-24 rounded-full bg-white/10" />
@@ -161,7 +158,6 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* Result */}
           {result && !loading && (
             <div className="mt-10 animate-fade-in-up space-y-5">
               <ReputationCard result={result} proofId={proof?.proofId} />
@@ -169,7 +165,7 @@ export default function DashboardPage() {
                 <div className="flex flex-wrap gap-3">
                   <a
                     href={`${origin}/card/${proof.proofId}`}
-                    className="btn-acid"
+                    className="btn-chrome"
                   >
                     Open share card
                     <ArrowRight className="h-4 w-4" />
@@ -177,7 +173,7 @@ export default function DashboardPage() {
                   <button onClick={copyShare} className="btn-ghost">
                     {copied ? (
                       <>
-                        <Check className="h-4 w-4 text-acid" />
+                        <Check className="h-4 w-4 text-iris" />
                         Copied
                       </>
                     ) : (

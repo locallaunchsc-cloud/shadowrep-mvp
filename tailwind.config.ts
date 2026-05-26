@@ -6,18 +6,27 @@ const config: Config = {
     extend: {
       colors: {
         void: "#000000",
-        ink: "#050507",
-        veil: "#0a0a10",
-        ghost: "#E7FFF6",
-        acid: "#00FF85",
-        "acid-2": "#39FF14",
-        cyber: "#00F0FF",
-        magenta: "#FF006E",
+        ink: "#050505",
+        coal: "#0a0a0a",
+        graphite: "#141416",
+        steel: "#1f1f23",
+        iron: "#2a2a30",
+        silver: "#c0c0c8",
+        chrome: "#e6e6ec",
+        mirror: "#f5f5f7",
+        ghost: "#ffffff",
         iris: "#B19CFF",
+        "iris-deep": "#7C5CFA",
       },
       fontFamily: {
         sans: ["var(--font-space)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["var(--font-unbounded)", "var(--font-space)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: [
+          "var(--font-unbounded)",
+          "var(--font-space)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
         mono: [
           "var(--font-jetbrains)",
           "ui-monospace",
@@ -29,24 +38,23 @@ const config: Config = {
         ],
       },
       boxShadow: {
-        acid: "0 0 60px rgba(0, 255, 133, 0.35), 0 0 120px rgba(0, 240, 255, 0.15)",
-        cyber: "0 0 60px rgba(0, 240, 255, 0.35)",
-        magenta: "0 0 60px rgba(255, 0, 110, 0.35)",
+        chrome:
+          "0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px -20px rgba(0,0,0,0.9), 0 0 60px rgba(255,255,255,0.04)",
+        iris:
+          "0 0 0 1px rgba(177,156,255,0.3), 0 0 50px rgba(177,156,255,0.25)",
         card: "0 1px 0 rgba(255,255,255,0.06) inset, 0 30px 80px -20px rgba(0,0,0,0.9)",
-        ring: "0 0 0 1px rgba(0, 255, 133, 0.35), 0 0 40px rgba(0, 255, 133, 0.25)",
+        ring: "0 0 0 1px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.05)",
       },
       animation: {
         "fade-in": "fade-in 0.6s ease-out both",
         "fade-in-up": "fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
-        "blob-1": "blob 18s ease-in-out infinite",
-        "blob-2": "blob 22s ease-in-out infinite reverse",
-        "blob-3": "blob 26s ease-in-out infinite",
-        marquee: "marquee 40s linear infinite",
-        "spin-slow": "spin 12s linear infinite",
-        "spin-conic": "spin 4s linear infinite",
-        holo: "holo 6s ease infinite",
-        drift: "drift 20s ease-in-out infinite",
-        "scan-line": "scan-line 3s linear infinite",
+        "blob-1": "blob 22s ease-in-out infinite",
+        "blob-2": "blob 26s ease-in-out infinite reverse",
+        "blob-3": "blob 30s ease-in-out infinite",
+        marquee: "marquee 50s linear infinite",
+        "spin-slow": "spin 14s linear infinite",
+        "chrome-shine": "chrome-shine 8s linear infinite",
+        drift: "drift 24s ease-in-out infinite",
       },
       keyframes: {
         "fade-in": {
@@ -75,17 +83,13 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
-        holo: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
+        "chrome-shine": {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
         },
         drift: {
           "0%, 100%": { transform: "translate(0, 0) scale(1)" },
           "50%": { transform: "translate(30px, -20px) scale(1.08)" },
-        },
-        "scan-line": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" },
         },
       },
     },

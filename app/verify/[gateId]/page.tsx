@@ -61,40 +61,39 @@ function VerifyGateInner() {
     <section className="relative mx-auto max-w-3xl px-6 py-14">
       <div>
         <div className="flex items-center gap-2 font-mono text-xs">
-          <span className="rounded-full border border-cyber/30 bg-cyber/10 px-3 py-1 font-bold tracking-wider text-cyber">
+          <span className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 font-bold tracking-wider text-zinc-300">
             PRIVATE_GATE
           </span>
-          <span className="text-slate-500">{params.gateId}</span>
+          <span className="text-zinc-500">{params.gateId}</span>
         </div>
         <h1 className="mt-4 font-display text-4xl font-black tracking-tight sm:text-6xl">
           {gateName}
         </h1>
-        <p className="mt-4 max-w-2xl text-slate-400">
+        <p className="mt-4 max-w-2xl text-zinc-400">
           Connect your wallet to prove eligibility. The gate receives a yes /
           no result — never your public wallet address.
         </p>
       </div>
 
-      {/* Requirements + action */}
-      <div className="conic-border mt-10 rounded-3xl p-7">
+      <div className="chrome-border mt-10 rounded-3xl p-7">
         <div className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-xl border border-acid/30 bg-acid/10 text-acid">
+          <span className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white">
             <ShieldCheck className="h-5 w-5" />
           </span>
           <div>
             <p className="font-display text-sm font-extrabold">Requirements</p>
-            <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
               EVALUATED AGAINST YOUR SHADOWREP SNAPSHOT
             </p>
           </div>
         </div>
-        <pre className="mt-5 overflow-auto rounded-2xl border border-white/[0.06] bg-black/60 p-4 text-[11px] leading-relaxed text-cyber">
+        <pre className="mt-5 overflow-auto rounded-2xl border border-white/[0.06] bg-black/60 p-4 text-[11px] leading-relaxed text-zinc-300">
 {JSON.stringify(requirements, null, 2)}
         </pre>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-slate-500">
-            <Lock className="h-3.5 w-3.5 text-acid" />
+          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+            <Lock className="h-3.5 w-3.5 text-zinc-300" />
             wallet_never_transmitted
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -102,7 +101,7 @@ function VerifyGateInner() {
             <button
               onClick={verify}
               disabled={!publicKey || loading}
-              className="btn-acid disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:brightness-100"
+              className="btn-chrome disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:brightness-100"
             >
               {loading ? (
                 <>
@@ -117,21 +116,20 @@ function VerifyGateInner() {
         </div>
       </div>
 
-      {/* Result */}
       {result && (
         <div
           className={`mt-8 animate-fade-in-up overflow-hidden rounded-3xl border p-7 ${
             result.qualified
-              ? "border-acid/40 bg-acid/[0.05] shadow-acid"
-              : "border-magenta/40 bg-magenta/[0.05] shadow-magenta"
+              ? "border-iris/40 bg-iris/[0.05] shadow-iris"
+              : "border-white/15 bg-white/[0.02]"
           }`}
         >
           <div className="flex items-start gap-4">
             <span
               className={`grid h-14 w-14 place-items-center rounded-2xl ${
                 result.qualified
-                  ? "bg-acid/15 text-acid"
-                  : "bg-magenta/15 text-magenta"
+                  ? "bg-iris/15 text-iris"
+                  : "bg-white/5 text-zinc-400"
               }`}
             >
               {result.qualified ? (
@@ -143,12 +141,12 @@ function VerifyGateInner() {
             <div>
               <h2 className="font-display text-3xl font-black tracking-tight">
                 {result.qualified ? (
-                  <span className="text-acid">QUALIFIED</span>
+                  <span className="chrome-shine">QUALIFIED</span>
                 ) : (
-                  <span className="text-magenta">NOT_QUALIFIED</span>
+                  <span className="text-zinc-300">NOT_QUALIFIED</span>
                 )}
               </h2>
-              <p className="mt-1 text-sm text-slate-300">
+              <p className="mt-1 text-sm text-zinc-300">
                 {result.qualified
                   ? "Your wallet meets every requirement for this gate."
                   : "Your wallet does not currently meet the gate requirements."}
@@ -162,14 +160,14 @@ function VerifyGateInner() {
                 key={check.label}
                 className={`flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-sm ${
                   check.passed
-                    ? "border-acid/15 bg-acid/[0.04]"
-                    : "border-magenta/15 bg-magenta/[0.04]"
+                    ? "border-iris/15 bg-iris/[0.04]"
+                    : "border-white/10 bg-white/[0.02]"
                 }`}
               >
-                <span className="text-slate-200">{check.label}</span>
+                <span className="text-zinc-200">{check.label}</span>
                 <span
                   className={`inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase ${
-                    check.passed ? "text-acid" : "text-magenta"
+                    check.passed ? "text-iris" : "text-zinc-500"
                   }`}
                 >
                   {check.passed ? (
@@ -199,13 +197,13 @@ export default function VerifyGatePage() {
       <Navbar />
       <main className="relative min-h-screen overflow-hidden">
         <div className="blob-field">
-          <div className="blob blob-magenta animate-blob-1 absolute left-[-15%] top-10 h-[420px] w-[420px] opacity-25" />
-          <div className="blob blob-acid animate-blob-2 absolute right-[-10%] top-32 h-[460px] w-[460px] opacity-25" />
+          <div className="blob blob-iris animate-blob-1 absolute left-[-15%] top-10 h-[420px] w-[420px] opacity-20" />
+          <div className="blob blob-white animate-blob-2 absolute right-[-10%] top-32 h-[460px] w-[460px] opacity-15" />
         </div>
         <div className="relative">
           <Suspense
             fallback={
-              <div className="mx-auto max-w-3xl px-6 py-14 font-mono text-slate-400">
+              <div className="mx-auto max-w-3xl px-6 py-14 font-mono text-zinc-400">
                 LOADING_GATE…
               </div>
             }
